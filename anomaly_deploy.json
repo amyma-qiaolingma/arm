@@ -3,44 +3,43 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vmName": {
-            "type": "string",
             "defaultValue": "simpleLinuxVM",
+            "type": "String",
             "metadata": {
                 "description": "The name of you Virtual Machine."
             }
         },
         "adminUsername": {
-            "type": "string",
+            "type": "String",
             "metadata": {
                 "description": "Username for the Virtual Machine."
             }
         },
         "authenticationType": {
-            "type": "string",
             "defaultValue": "password",
             "allowedValues": [
                 "sshPublicKey",
                 "password"
             ],
+            "type": "String",
             "metadata": {
                 "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
             }
         },
         "adminPasswordOrKey": {
-            "type": "secureString",
+            "type": "SecureString",
             "metadata": {
                 "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
             }
         },
         "dnsLabelPrefix": {
-            "type": "string",
             "defaultValue": "[toLower(format('simplelinuxvm-{0}', uniqueString(resourceGroup().id)))]",
+            "type": "String",
             "metadata": {
                 "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
             }
         },
         "ubuntuOSVersion": {
-            "type": "string",
             "defaultValue": "18.04-LTS",
             "allowedValues": [
                 "12.04.5-LTS",
@@ -48,194 +47,222 @@
                 "16.04.0-LTS",
                 "18.04-LTS"
             ],
+            "type": "String",
             "metadata": {
                 "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."
             }
         },
         "vmSize": {
-            "type": "string",
             "defaultValue": "Standard_B2s",
+            "type": "String",
             "metadata": {
                 "description": "The size of the VM"
             }
         },
         "virtualNetworkName": {
-            "type": "string",
             "defaultValue": "vNet",
+            "type": "String",
             "metadata": {
                 "description": "Name of the VNET"
             }
         },
         "subnetName": {
-            "type": "string",
             "defaultValue": "Subnet",
+            "type": "String",
             "metadata": {
                 "description": "Name of the subnet in the virtual network"
             }
         },
         "networkSecurityGroupName": {
-            "type": "string",
             "defaultValue": "SecGroupNet",
+            "type": "String",
             "metadata": {
                 "description": "Name of the Network Security Group"
             }
         },
         "existingStorageAcctResourceId": {
-            "type": "string",
+            "type": "String",
             "metadata": {
                 "description": "Name of the exiting Storage Account to archieve captures"
             }
         },
         "eventhubSku": {
-            "type": "string",
+            "defaultValue": "Standard",
             "allowedValues": [
                 "Basic",
                 "Standard"
             ],
-            "defaultValue": "Standard",
+            "type": "String",
             "metadata": {
                 "description": "The messaging tier for service Bus namespace"
             }
         },
         "isAutoInflateEnabled": {
-            "type": "string",
             "defaultValue": "True",
             "allowedValues": [
                 "True",
                 "False"
             ],
+            "type": "String",
             "metadata": {
                 "description": "Enable or disable AutoInflate"
             }
         },
         "maximumThroughputUnits": {
-            "type": "int",
             "defaultValue": 10,
             "minValue": 0,
             "maxValue": 20,
+            "type": "Int",
             "metadata": {
                 "description": "Upper limit of throughput units when AutoInflate is enabled, vaule should be within 0 to 20 throughput units."
             }
         },
         "messageRetentionInDays": {
-            "type": "int",
             "defaultValue": 1,
             "minValue": 1,
             "maxValue": 7,
+            "type": "Int",
             "metadata": {
                 "description": "How long to retain the data in Event Hub"
             }
         },
         "partitionCount": {
-            "type": "int",
             "defaultValue": 4,
             "minValue": 2,
             "maxValue": 32,
+            "type": "Int",
             "metadata": {
                 "description": "Number of partitions chosen"
             }
         },
         "captureEnabled": {
-            "type": "bool",
             "defaultValue": true,
+            "type": "Bool",
             "metadata": {
                 "description": "Enable or disable the Capture feature for your Event Hub"
             }
         },
         "captureEncodingFormat": {
-            "type": "string",
             "defaultValue": "Avro",
             "allowedValues": [
                 "Avro"
             ],
+            "type": "String",
             "metadata": {
                 "description": "The encoding format Eventhub capture serializes the EventData when archiving to your storage"
             }
         },
         "captureTime": {
-            "type": "int",
             "defaultValue": 300,
             "minValue": 60,
             "maxValue": 900,
+            "type": "Int",
             "metadata": {
                 "description": "the time window in seconds for the archival"
             }
         },
         "captureSize": {
-            "type": "int",
             "defaultValue": 314572800,
             "minValue": 10485760,
             "maxValue": 524288000,
+            "type": "Int",
             "metadata": {
                 "description": "the size window in bytes for evetn hub capture"
             }
         },
         "blobContainerName": {
-            "type": "string",
+            "type": "String",
             "metadata": {
                 "description": "Your existing storage container that you want the blobs archived in"
             }
         },
         "captureNameFormat": {
-            "type": "string",
             "defaultValue": "{Namespace}/{EventHub}/{PartitionId}/{Year}/{Month}/{Day}/{Hour}/{Minute}/{Second}",
+            "type": "String",
             "metadata": {
                 "description": "A Capture Name Format must contain {Namespace}, {EventHub}, {PartitionId}, {Year}, {Month}, {Day}, {Hour}, {Minute} and {Second} fields. These can be arranged in any order with or without delimeters. E.g.  Prod_{EventHub}/{Namespace}\\{PartitionId}_{Year}_{Month}/{Day}/{Hour}/{Minute}/{Second}"
             }
         },
         "location": {
-            "type": "string",
             "defaultValue": "[resourceGroup().location]",
+            "type": "String",
             "metadata": {
                 "description": "Location for all resources"
             }
         },
         "clusterName": {
-            "type": "string",
             "defaultValue": "[format('kusto{0}', uniqueString(resourceGroup().id))]",
+            "type": "String",
             "metadata": {
                 "description": "Name of the cluster"
             }
         },
         "skuName": {
-            "type": "string",
             "defaultValue": "Standard_D12_v2",
+            "type": "String",
             "metadata": {
                 "description": "Name of the sku"
             }
         },
         "skuCapacity": {
-            "type": "int",
             "defaultValue": 2,
-            "maxValue": 1000,
             "minValue": 2,
+            "maxValue": 1000,
+            "type": "Int",
             "metadata": {
                 "description": "# of nodes"
             }
         },
         "databaseName": {
-            "type": "string",
             "defaultValue": "kustodb",
+            "type": "String",
             "metadata": {
                 "description": "Name of the database"
             }
         },
         "eventHubNamespaceName": {
-            "type": "string",
             "defaultValue": "[format('eventHub{0}', uniqueString(resourceGroup().id))]",
+            "type": "String",
             "metadata": {
                 "description": "Name of Event Hub's namespace"
             }
         },
         "eventHubName": {
-            "type": "string",
             "defaultValue": "kustoHub",
+            "type": "String",
             "metadata": {
                 "description": "Name of Event Hub"
             }
+        },
+        "uniqueIdentifierName": {
+            "type": "String",
+            "metadata": {
+                "description": "Name of the Unqiue Identifier for Resources"
+            }
+        },
+        "adxDbName": {
+            "defaultValue": "mcclogs",
+            "type": "String",
+            "metadata": {
+                "description": "Name of the ADX Database"
+            }
+        },
+        "identityName": {
+            "defaultValue": "deploymentScriptIdentity",
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the name of the user-assigned managed identity."
+            }
+        },
+        "storageMode": {
+            "defaultValue": "Rapid Prototyping",
+            "allowedValues": [
+                "Rapid Prototyping",
+                "Production Capable - Data Translation"
+            ],
+            "type": "String"
         }
     },
-    "functions": [],
     "variables": {
         "publicIPAddressName": "[format('{0}PublicIP', parameters('vmName'))]",
         "networkInterfaceName": "[format('{0}NetInt', parameters('vmName'))]",
@@ -258,14 +285,28 @@
         "dataReceiverId": "a638d3c7-ab3a-418d-83e6-5f17a39d4fde",
         "fullDataReceiverId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('dataReceiverId'))]",
         "eventHubRoleAssignmentName": "[format('{0}{1}{2}{3}', resourceGroup().id, parameters('clusterName'), variables('dataReceiverId'), parameters('eventHubName'))]",
-        "roleAssignmentName": "[format('{0}', guid(variables('eventHubRoleAssignmentName'), parameters('eventHubName'), variables('dataReceiverId'), parameters('clusterName')))]"
+        "roleAssignmentName": "[format('{0}', guid(variables('eventHubRoleAssignmentName'), parameters('eventHubName'), variables('dataReceiverId'), parameters('clusterName')))]",
+        "a40observility_guid": "pid-a2a65bc2-351a-4f60-9511-1de1889f3b69",
+        "adls_raw": "[concat(parameters('uniqueIdentifierName'),'adlsraw')]",
+        "adls_silver": "[concat(parameters('uniqueIdentifierName'),'adlssilver')]",
+        "adls_gold": "[concat(parameters('uniqueIdentifierName'),'adlsgold')]",
+        "ehns_name": "[concat(parameters('uniqueIdentifierName'),'-ehns')]",
+        "adxClusterName": "[concat(parameters('uniqueIdentifierName'),'observeradx')]",
+        "bootstrapRoleAssignmentId": "[guid(concat(resourceGroup().id, 'contributor'))]",
+        "contributorRoleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]"
     },
+    "functions": [],
     "resources": [
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2020-06-01",
             "name": "[variables('networkInterfaceName')]",
             "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
+            ],
             "properties": {
                 "ipConfigurations": [
                     {
@@ -284,12 +325,7 @@
                 "networkSecurityGroup": {
                     "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
                 }
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
-                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
-            ]
+            }
         },
         {
             "type": "Microsoft.Network/networkSecurityGroups",
@@ -331,14 +367,14 @@
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2020-06-01",
             "name": "[format('{0}/{1}', parameters('virtualNetworkName'), parameters('subnetName'))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+            ],
             "properties": {
                 "addressPrefix": "[variables('subnetAddressPrefix')]",
                 "privateEndpointNetworkPolicies": "Enabled",
                 "privateLinkServiceNetworkPolicies": "Enabled"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
-            ]
+            }
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
@@ -362,6 +398,9 @@
             "apiVersion": "2020-06-01",
             "name": "[parameters('vmName')]",
             "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
+            ],
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('vmSize')]"
@@ -393,24 +432,21 @@
                     "adminPassword": "[parameters('adminPasswordOrKey')]",
                     "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), null(), variables('linuxConfiguration'))]"
                 }
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
-            ]
+            }
         },
         {
+            "type": "Microsoft.EventHub/Namespaces",
             "apiVersion": "2018-01-01-preview",
             "name": "[parameters('eventHubNamespaceName')]",
-            "type": "Microsoft.EventHub/Namespaces",
             "location": "[parameters('location')]",
+            "tags": {
+                "tag1": "value1",
+                "tag2": "value2"
+            },
             "sku": {
                 "name": "[parameters('eventhubSku')]",
                 "tier": "[parameters('eventhubSku')]",
                 "capacity": "[parameters('skuCapacity')]"
-            },
-            "tags": {
-                "tag1": "value1",
-                "tag2": "value2"
             },
             "properties": {
                 "isAutoInflateEnabled": "[parameters('isAutoInflateEnabled')]",
@@ -418,9 +454,9 @@
             },
             "resources": [
                 {
+                    "type": "eventhubs",
                     "apiVersion": "2017-04-01",
                     "name": "[parameters('eventHubName')]",
-                    "type": "eventhubs",
                     "dependsOn": [
                         "[resourceId('Microsoft.EventHub/namespaces/', parameters('eventHubNamespaceName'))]"
                     ],
@@ -450,30 +486,38 @@
             "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
             "apiVersion": "2021-11-01",
             "name": "[format('{0}/{1}/{2}', parameters('eventHubNamespaceName'), parameters('eventHubName'), 'kustoConsumerGroup')]",
-            "properties": {},
             "dependsOn": [
                 "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventHubNamespaceName'), parameters('eventHubName'))]",
                 "[resourceId('Microsoft.EventHub/namespaces', parameters('eventHubNamespaceName'))]"
-            ]
+            ],
+            "properties": {}
         },
         {
             "type": "Microsoft.Kusto/clusters/databases/scripts",
             "apiVersion": "2022-02-01",
             "name": "[format('{0}/{1}/{2}', parameters('clusterName'), parameters('databaseName'), 'db-script')]",
-            "properties": {
-                "scriptContent": "//  Create a landing table for Event Hub's events\r\n.create-merge table RawEvents(document:dynamic)\r\n\r\n//  Create mapping from JSON ingestion to landing table\r\n.create-or-alter table RawEvents ingestion json mapping 'DirectJson' '[{\"column\":\"document\",\"path\":\"$\",\"datatype\":\"dynamic\"}]'\r\n\r\n//  We modify the ingestion batching policy to make it easy to see records coming ingestion\r\n//  THIS CONFIGURATION SHOULDN'T BE USED IN PRODUCTION:  MaximumBatchingTimeSpan SHOULD BE AT LEAST 1 MINUTE\r\n.alter table RawEvents policy ingestionbatching \"{'MaximumBatchingTimeSpan': '0:0:10', 'MaximumNumberOfItems': 10000}\"",
-                "continueOnErrors": false
-            },
             "dependsOn": [
                 "[resourceId('Microsoft.Kusto/clusters', parameters('clusterName'))]",
                 "[resourceId('Microsoft.Kusto/clusters/databases', parameters('clusterName'), parameters('databaseName'))]"
-            ]
+            ],
+            "properties": {
+                "scriptContent": "//  Create a landing table for Event Hub's events\r\n.create-merge table RawEvents(document:dynamic)\r\n\r\n//  Create mapping from JSON ingestion to landing table\r\n.create-or-alter table RawEvents ingestion json mapping 'DirectJson' '[{\"column\":\"document\",\"path\":\"$\",\"datatype\":\"dynamic\"}]'\r\n\r\n//  We modify the ingestion batching policy to make it easy to see records coming ingestion\r\n//  THIS CONFIGURATION SHOULDN'T BE USED IN PRODUCTION:  MaximumBatchingTimeSpan SHOULD BE AT LEAST 1 MINUTE\r\n.alter table RawEvents policy ingestionbatching \"{'MaximumBatchingTimeSpan': '0:0:10', 'MaximumNumberOfItems': 10000}\"",
+                "continueOnErrors": false
+            }
         },
         {
             "type": "Microsoft.Kusto/clusters/databases/dataConnections",
             "apiVersion": "2022-02-01",
             "name": "[format('{0}/{1}/{2}', parameters('clusterName'), parameters('databaseName'), 'eventConnection')]",
             "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Kusto/clusters', parameters('clusterName'))]",
+                "[extensionResourceId(resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventHubNamespaceName'), parameters('eventHubName')), 'Microsoft.Authorization/roleAssignments', variables('roleAssignmentName'))]",
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventHubNamespaceName'), parameters('eventHubName'))]",
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs/consumergroups', parameters('eventHubNamespaceName'), parameters('eventHubName'), 'kustoConsumerGroup')]",
+                "[resourceId('Microsoft.Kusto/clusters/databases', parameters('clusterName'), parameters('databaseName'))]",
+                "[resourceId('Microsoft.Kusto/clusters/databases/scripts', parameters('clusterName'), parameters('databaseName'), 'db-script')]"
+            ],
             "kind": "EventHub",
             "properties": {
                 "compression": "None",
@@ -486,25 +530,17 @@
                 "managedIdentityResourceId": "[resourceId('Microsoft.Kusto/clusters', parameters('clusterName'))]",
                 "mappingRuleName": "DirectJson",
                 "tableName": "RawEvents"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Kusto/clusters', parameters('clusterName'))]",
-                "[extensionResourceId(resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventHubNamespaceName'), parameters('eventHubName')), 'Microsoft.Authorization/roleAssignments', variables('roleAssignmentName'))]",
-                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventHubNamespaceName'), parameters('eventHubName'))]",
-                "[resourceId('Microsoft.EventHub/namespaces/eventhubs/consumergroups', parameters('eventHubNamespaceName'), parameters('eventHubName'), 'kustoConsumerGroup')]",
-                "[resourceId('Microsoft.Kusto/clusters/databases', parameters('clusterName'), parameters('databaseName'))]",
-                "[resourceId('Microsoft.Kusto/clusters/databases/scripts', parameters('clusterName'), parameters('databaseName'), 'db-script')]"
-            ]
+            }
         },
         {
             "type": "Microsoft.Kusto/clusters/databases",
             "apiVersion": "2022-02-01",
             "name": "[format('{0}/{1}', parameters('clusterName'), parameters('databaseName'))]",
             "location": "[parameters('location')]",
-            "kind": "ReadWrite",
             "dependsOn": [
                 "[resourceId('Microsoft.Kusto/clusters', parameters('clusterName'))]"
-            ]
+            ],
+            "kind": "ReadWrite"
         },
         {
             "type": "Microsoft.Kusto/clusters",
@@ -523,36 +559,365 @@
         {
             "type": "Microsoft.Authorization/roleAssignments",
             "apiVersion": "2021-04-01-preview",
-            "scope": "[format('Microsoft.EventHub/namespaces/{0}/eventhubs/{1}', parameters('eventHubNamespaceName'), parameters('eventHubName'))]",
             "name": "[variables('roleAssignmentName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Kusto/clusters', parameters('clusterName'))]",
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventHubNamespaceName'), parameters('eventHubName'))]"
+            ],
             "properties": {
                 "description": "Give \"Azure Event Hubs Data Receiver\" to the cluster",
                 "principalId": "[reference(resourceId('Microsoft.Kusto/clusters', parameters('clusterName')), '2022-02-01', 'full').identity.principalId]",
                 "principalType": "ServicePrincipal",
                 "roleDefinitionId": "[variables('fullDataReceiverId')]"
             },
+            "scope": "[format('Microsoft.EventHub/namespaces/{0}/eventhubs/{1}', parameters('eventHubNamespaceName'), parameters('eventHubName'))]"
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2018-02-01",
+            "name": "pid-a2a65bc2-351a-4f60-9511-1de1889f3b69",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces",
+            "apiVersion": "2021-11-01",
+            "name": "[variables('ehns_name')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard",
+                "tier": "Standard",
+                "capacity": 2
+            },
+            "properties": {
+                "disableLocalAuth": false,
+                "zoneRedundant": true,
+                "isAutoInflateEnabled": false,
+                "maximumThroughputUnits": 0,
+                "kafkaEnabled": true
+            },
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]"
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "apiVersion": "2021-11-01",
+            "name": "[concat(variables('ehns_name'), '/RootManageSharedAccessKey')]",
+            "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Kusto/clusters', parameters('clusterName'))]",
-                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventHubNamespaceName'), parameters('eventHubName'))]"
-            ]
+                "[resourceId('Microsoft.EventHub/namespaces', variables('ehns_name'))]"
+            ],
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            },
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]"
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/networkRuleSets",
+            "apiVersion": "2021-11-01",
+            "name": "[concat(variables('ehns_name'), '/default')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', variables('ehns_name'))]"
+            ],
+            "properties": {
+                "publicNetworkAccess": "Enabled",
+                "defaultAction": "Allow",
+                "virtualNetworkRules": [],
+                "ipRules": []
+            },
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]"
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs",
+            "apiVersion": "2021-11-01",
+            "name": "[concat(variables('ehns_name'), '/eh-logs')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', variables('ehns_name'))]"
+            ],
+            "properties": {
+                "messageRetentionInDays": 1,
+                "partitionCount": 2,
+                "status": "Active"
+            },
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]"
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+            "apiVersion": "2021-11-01",
+            "name": "[concat(variables('ehns_name'), '/eh-logs/$Default')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', variables('ehns_name'), 'eh-logs')]",
+                "[resourceId('Microsoft.EventHub/namespaces', variables('ehns_name'))]"
+            ],
+            "properties": {},
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]"
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2021-06-01",
+            "name": "[variables('adls_raw')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "defaultToOAuthAuthentication": false,
+                "allowCrossTenantReplication": false,
+                "minimumTlsVersion": "TLS1_2",
+                "allowBlobPublicAccess": true,
+                "allowSharedKeyAccess": true,
+                "isHnsEnabled": true,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "requireInfrastructureEncryption": false,
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            },
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]"
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2021-06-01",
+            "name": "[variables('adls_silver')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "defaultToOAuthAuthentication": false,
+                "allowCrossTenantReplication": false,
+                "minimumTlsVersion": "TLS1_2",
+                "allowBlobPublicAccess": true,
+                "allowSharedKeyAccess": true,
+                "isHnsEnabled": true,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "requireInfrastructureEncryption": false,
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            },
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]"
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2021-06-01",
+            "name": "[variables('adls_gold')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "defaultToOAuthAuthentication": false,
+                "allowCrossTenantReplication": false,
+                "minimumTlsVersion": "TLS1_2",
+                "allowBlobPublicAccess": true,
+                "allowSharedKeyAccess": true,
+                "isHnsEnabled": true,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "requireInfrastructureEncryption": false,
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Kusto/clusters",
+            "apiVersion": "2020-06-14",
+            "name": "[variables('adxClusterName')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard_D13_v2",
+                "tier": "Standard",
+                "capacity": 3
+            },
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "optimizedAutoscale": {
+                    "version": 1,
+                    "isEnabled": true,
+                    "minimum": 2,
+                    "maximum": 10
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Kusto/clusters/databases",
+            "apiVersion": "2020-06-14",
+            "name": "[concat(variables('adxClusterName'), '/', parameters('adxDbName'))]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Kusto/clusters', variables('adxClusterName'))]"
+            ],
+            "properties": {
+                "softDeletePeriodInDays": 365,
+                "hotCachePeriodInDays": 31
+            }
+        },
+        {
+            "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+            "apiVersion": "2018-11-30",
+            "name": "[parameters('identityName')]",
+            "location": "[resourceGroup().location]"
+        },
+        {
+            "type": "Microsoft.Kusto/Clusters/PrincipalAssignments",
+            "apiVersion": "2020-09-18",
+            "name": "[concat(variables('adxClusterName'), '/MSIidentity')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Kusto/Clusters', variables('adxClusterName'))]",
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName'))]"
+            ],
+            "properties": {
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2018-11-30').clientId]",
+                "principalType": "App",
+                "tenantId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2018-11-30').tenantId]",
+                "role": "AllDatabasesAdmin"
+            }
+        },
+        {
+            "type": "Microsoft.Kusto/Clusters/Databases/PrincipalAssignments",
+            "apiVersion": "2020-09-18",
+            "name": "[concat(variables('adxClusterName'), '/', parameters('adxDbName'), '/MSIidentity')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Kusto/Clusters/Databases', variables('adxClusterName'), parameters('adxDbName'))]",
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName'))]"
+            ],
+            "properties": {
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2018-11-30').clientId]",
+                "principalType": "App",
+                "tenantId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2018-11-30').tenantId]",
+                "role": "Admin"
+            }
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2018-09-01-preview",
+            "name": "[variables('bootstrapRoleAssignmentId')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName'))]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[variables('contributorRoleDefinitionId')]",
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2018-11-30').principalId]",
+                "scope": "[resourceGroup().id]",
+                "principalType": "ServicePrincipal"
+            }
         }
     ],
     "outputs": {
         "adminUsername": {
-            "type": "string",
+            "type": "String",
             "value": "[parameters('adminUsername')]"
         },
         "hostname": {
-            "type": "string",
+            "type": "String",
             "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))).dnsSettings.fqdn]"
         },
         "sshCommand": {
-            "type": "string",
+            "type": "String",
             "value": "[format('ssh {0}@{1}', parameters('adminUsername'), reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))).dnsSettings.fqdn)]"
         },
         "authRuleResourceId": {
-            "type": "string",
+            "type": "String",
             "value": "[variables('authRuleResourceId')]"
+        },
+        "adxUrl": {
+            "type": "String",
+            "value": "[reference(resourceId('Microsoft.Kusto/clusters', variables('adxClusterName')), '2020-06-14', 'Full').properties.uri]"
+        },
+        "adxIngestionUrl": {
+            "type": "String",
+            "value": "[reference(resourceId('Microsoft.Kusto/clusters', variables('adxClusterName')), '2020-06-14', 'Full').properties.dataIngestionUri]"
+        },
+        "eventHubUrl": {
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]",
+            "type": "String",
+            "value": "[reference(resourceId('Microsoft.EventHub/namespaces', variables('ehns_name')), '2021-11-01', 'Full').properties.serviceBusEndpoint]"
+        },
+        "storageEndpointRaw": {
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]",
+            "type": "Object",
+            "value": "[reference(variables('adls_raw')).primaryEndpoints]"
+        },
+        "storageEndpointSilver": {
+            "condition": "[equals(parameters('storageMode'), 'Production Capable - Data Translation')]",
+            "type": "Object",
+            "value": "[reference(variables('adls_silver')).primaryEndpoints]"
+        },
+        "storageEndpointGold": {
+            "type": "Object",
+            "value": "[reference(variables('adls_gold')).primaryEndpoints]"
         }
     }
 }
